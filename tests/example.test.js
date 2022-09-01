@@ -4,7 +4,7 @@ describe('Full Page Screenshot', () => {
   let page;
   before(async function () {
     browser = await puppeteer.launch({
-      headless: false,
+      headless: true,
       slowMo: 0,
       devtools: false,
     });
@@ -16,7 +16,7 @@ describe('Full Page Screenshot', () => {
     await browser.close();
   });
   it('should take a full screenshot', async function () {
-    await page.goto('http://www.example.com');
+    await page.goto('http://www.example.com', { waitUntil: 'networkidle0' }); //will wait until there are no more running requests in the browser, yhat means that the website is full loaded
     await page.screenshot({ path: 'page.png', fullPage: 'true' });
   });
 });
